@@ -1,0 +1,33 @@
+cors:
+  originPatterns: http://localhost:3000,http://localhost:8080,http://localhost:8036,https://erudio.com.br
+file:
+  upload-dir: /Users/raysatownsend/Documents/Back-End/Cursos/API_RESTful_with_springboot_kotlin_e_swagger/methods_get_post_put_delete/UploadDir
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
+server:
+  port: 8888
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+spring-doc:
+  paths-to-match:
+    - /api/**/v1/**
+    - /auth/**
+  swagger-ui:
+    use-root-path: true

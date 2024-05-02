@@ -1,0 +1,40 @@
+version: '4.29'
+services:
+  db:
+    image: mysql:8.3.0
+    command: mysqld --default-authentication-plugin=caching_sha2_password
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: Raysa#1902
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: Raysa#1902
+      MYSQL_DATABASE: client_database_test
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - 3308:3308
+    expose:
+      - 3308
+    networks:
+      - erudio-network
+  client_database_test:
+    image: raytownsend/client_database_test
+    restart: always
+    build: ./methods_get_post_put_delete
+    working_dir: /methods_get_post_put_delete
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3308/client_database_test?useTimezone=true&serverTimezone=UTC
+      SPRING.DATASOURCE.USERNAME: root
+      SPRING.DATASOURCE.PASSWORD: Raysa#1902
+    ports:
+      - 80:80
+    command: mvn spring-boot:run
+    depends_on:
+      - db
+    networks:
+      - erudio-network
+networks:
+  erudio-network:
+    driver: bridge
